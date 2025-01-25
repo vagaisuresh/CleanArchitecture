@@ -2,6 +2,8 @@
 
 An implementation of Clean Architecture for ASP.NET Core Web API 9.0, following best practices.
 
-#Technologies
-1.	ASP.NET Core Web API
-2.	Entity Framework Core
+<b>Technologies</b>
+<ul>
+  <li>ASP.NET Core Web API 9.0</li>
+  <li>Entity Framework Core</li>
+</ul>
