@@ -14,7 +14,8 @@ namespace CleanArchitecture.Persistence.Repositories
 
         public async Task<IEnumerable<User>> GetUsersAsync()
         {
-            return await _context.Users.ToListAsync();
+            var users =  await _context.Users.ToListAsync();
+            return users;
         }
 
         public async Task<User> GetUserByIdAsync(short id)

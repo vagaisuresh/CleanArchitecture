@@ -6,21 +6,22 @@ namespace CleanArchitecture.Application.Services
 {
     public class RoleService : IRoleService
     {
-        private readonly IRoleRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public RoleService(IRoleRepository repository)
+        public RoleService(IUnitOfWork unitOfWork)
         {
-            _repository = repository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IEnumerable<Role>> GetAllRolesAsync()
         {
-            return await _repository.GetRolesAsync();
+            return await _unitOfWork.RoleRepository.GetRolesAsync();
         }
 
         public async Task<Role> GetRoleByIdAsync(short id)
         {
-            return await _repository.GetRoleByIdAsync(id);
+            return await _unitOfWork.RoleRepository.GetRoleByIdAsync(id);
+            
         }
     }
 }
