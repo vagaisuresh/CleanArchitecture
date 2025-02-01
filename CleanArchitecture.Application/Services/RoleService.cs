@@ -21,7 +21,6 @@ namespace CleanArchitecture.Application.Services
         public async Task<Role> GetRoleByIdAsync(short id)
         {
             return await _unitOfWork.RoleRepository.GetRoleByIdAsync(id);
-            
         }
     }
 }
