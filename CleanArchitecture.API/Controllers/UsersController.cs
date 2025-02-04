@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Application.Interfaces;
+using CleanArchitecture.Application.Parameters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.API.Controllers
@@ -14,10 +15,17 @@ namespace CleanArchitecture.API.Controllers
             _service = service;
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<IActionResult> GetUsersAsync()
         {
             var users = await _service.GetUsersAsync();
+            return Ok(users);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetUsersPagingAsync([FromQuery] UserParameters userParameters)
+        {
+            var users = await _service.GetUsersPagingAsync(userParameters);
             return Ok(users);
         }
 
