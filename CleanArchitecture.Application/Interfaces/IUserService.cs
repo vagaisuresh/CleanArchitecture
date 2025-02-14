@@ -8,5 +8,9 @@ namespace CleanArchitecture.Application.Interfaces
         Task<IEnumerable<User>> GetUsersAsync();
         Task<IEnumerable<User>> GetUsersPagingAsync(UserParameters parameters);
         Task<User?> GetUserByIdAsync(short id);
+
+        Task<User> CreateAsync(User user);
+        Task UpdateAsync(short id, User user);
+        Task DeleteAsync(short id);
     }
 }

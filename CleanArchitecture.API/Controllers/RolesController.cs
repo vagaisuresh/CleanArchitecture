@@ -65,7 +65,7 @@ namespace CleanArchitecture.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostAsync(RoleSaveDto roleSaveDto)
+        public async Task<IActionResult> PostAsync([FromBody] RoleSaveDto roleSaveDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid role data.");
@@ -113,7 +113,7 @@ namespace CleanArchitecture.API.Controllers
         public async Task<IActionResult> DeleteAsync([FromRoute] short id)
         {
             if (id == 0)
-                return BadRequest("Invalid id");
+                return BadRequest("Invalid role id.");
 
             try
             {
