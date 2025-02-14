@@ -34,7 +34,7 @@ namespace CleanArchitecture.Application.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"An error occurred when saving the category: {ex.Message}");
+                throw new Exception($"An error occurred when saving the role: {ex.Message}");
             }
         }
 
@@ -43,7 +43,7 @@ namespace CleanArchitecture.Application.Services
             var existingRole = await _unitOfWork.RoleRepository.GetRoleByIdAsync(id);
 
             if (existingRole == null)
-                throw new InvalidOperationException("Category not found.");
+                throw new InvalidOperationException("Role not found.");
 
             existingRole.RoleName = role.RoleName;
             existingRole.Description = role.Description;
@@ -56,7 +56,7 @@ namespace CleanArchitecture.Application.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"An error occurred when saving the category: {ex.Message}");
+                throw new Exception($"An error occurred when updating the role: {ex.Message}");
             }
         }
 
@@ -74,7 +74,7 @@ namespace CleanArchitecture.Application.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"An error occurred when saving the category: {ex.Message}");
+                throw new Exception($"An error occurred when saving the role: {ex.Message}");
             }
         }
     }

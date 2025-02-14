@@ -85,5 +85,67 @@ namespace CleanArchitecture.API.Controllers
                 return StatusCode(500, "Internal server error. Please try again later.");
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> PostAsync([FromBody] UserSaveDto userSaveDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid role data.");
+
+            try
+            {
+                var user = _mapper.Map<UserSaveDto, User>(userSaveDto);
+                var savedUser = await _service.CreateAsync(user);
+
+                if (savedUser == null)
+                    return NotFound();
+
+                var userDto = _mapper.Map<User, UserDto>(savedUser);
+                return CreatedAtRoute("GetUser", new { id = userDto.Id }, userDto);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "Internal server error.");
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutAsync([FromRoute] short id, [FromBody] UserSaveDto userSaveDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid user data.");
+
+            try
+            {
+                var user = _mapper.Map<UserSaveDto, User>(userSaveDto);
+                await _service.UpdateAsync(id, user);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "Internal server error.");
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync([FromRoute] short id)
+        {
+            if (id == 0)
+                return BadRequest("Invalid user id.");
+
+            try
+            {
+                await _service.DeleteAsync(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "Internal server error.");
+            }
+        }
     }
 }
