@@ -19,9 +19,24 @@ namespace CleanArchitecture.Persistence.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Role> GetRoleByIdAsync(short id)
+        public async Task<Role?> GetRoleByIdAsync(short id)
         {
-            return await _context.Roles.FindAsync(id) ?? new Role();
+            return await _context.Roles.FindAsync(id);
+        }
+
+        public async Task AddAsync(Role role)
+        {
+            await _context.Roles.AddAsync(role);
+        }
+
+        public void Update(Role role)
+        {
+            _context.Roles.Update(role);
+        }
+
+        public void Remove(Role role)
+        {
+            _context.Roles.Remove(role);
         }
     }
 }

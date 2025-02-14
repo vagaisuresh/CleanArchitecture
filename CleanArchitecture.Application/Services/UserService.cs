@@ -24,7 +24,7 @@ namespace CleanArchitecture.Application.Services
             return await _unitOfWork.UserRepository.GetUsersPagingAsync(userParameters.PageNumber, userParameters.PageSize);
         }
 
-        public async Task<User> GetUserByIdAsync(short id)
+        public async Task<User?> GetUserByIdAsync(short id)
         {
             return await _unitOfWork.UserRepository.GetUserByIdAsync(id);
         }

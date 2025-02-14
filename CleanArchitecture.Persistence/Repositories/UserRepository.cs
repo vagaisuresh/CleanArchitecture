@@ -28,9 +28,9 @@ namespace CleanArchitecture.Persistence.Repositories
                 .ToListAsync();
         }
 
-        public async Task<User> GetUserByIdAsync(short id)
+        public async Task<User?> GetUserByIdAsync(short id)
         {
-            return await _context.Users.FindAsync(id) ?? new User();
+            return await _context.Users.FindAsync(id);
         }
     }
 }

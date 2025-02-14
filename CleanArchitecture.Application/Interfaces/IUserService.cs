@@ -7,6 +7,6 @@ namespace CleanArchitecture.Application.Interfaces
     {
         Task<IEnumerable<User>> GetUsersAsync();
         Task<IEnumerable<User>> GetUsersPagingAsync(UserParameters parameters);
-        Task<User> GetUserByIdAsync(short id);
+        Task<User?> GetUserByIdAsync(short id);
     }
 }

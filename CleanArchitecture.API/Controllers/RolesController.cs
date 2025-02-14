@@ -40,7 +40,7 @@ namespace CleanArchitecture.API.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetRole")]
         public async Task<IActionResult> GetRoleAsync(short id)
         {
             try
@@ -61,6 +61,69 @@ namespace CleanArchitecture.API.Controllers
             {
                 // Log the exception
                 return StatusCode(500, "Internal server error. Please try again later.");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostAsync(RoleSaveDto roleSaveDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid role data.");
+
+            try
+            {
+                var role = _mapper.Map<Role>(roleSaveDto);
+                var savedRole = await _service.CreateAsync(role);
+
+                if (savedRole == null)
+                    return NotFound();
+
+                var roleDto = _mapper.Map<Role, RoleDto>(savedRole);
+
+                return CreatedAtRoute("GetRole", new { id = roleDto.Id }, roleDto);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "Internal server error.");
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutAsync([FromRoute] short id, [FromBody] RoleSaveDto roleSaveDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid role data.");
+
+            try
+            {
+                var role = _mapper.Map<RoleSaveDto, Role>(roleSaveDto);
+                await _service.UpdateAsync(id, role);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "Internal server error.");
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync([FromRoute] short id)
+        {
+            if (id == 0)
+                return BadRequest("Invalid id");
+
+            try
+            {
+                await _service.DeleteAsync(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "Internal server error.");
             }
         }
     }
