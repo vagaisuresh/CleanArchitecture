@@ -8,10 +8,12 @@ namespace CleanArchitecture.Application.Services
     public class UserService : IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ILoggerService _logger;
 
-        public UserService(IUnitOfWork unitOfWork)
+        public UserService(IUnitOfWork unitOfWork, ILoggerService logger)
         {
             _unitOfWork = unitOfWork;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<User>> GetUsersAsync()
@@ -40,6 +42,7 @@ namespace CleanArchitecture.Application.Services
             }
             catch (Exception ex)
             {
+                _logger.LogError($"An error occurred while saving user in CreateAsync service method: {ex}");
                 throw new InvalidOperationException($"An error occurred when saving the user: {ex.Message}");
             }
         }
@@ -66,6 +69,7 @@ namespace CleanArchitecture.Application.Services
             }
             catch (Exception ex)
             {
+                _logger.LogError($"An error occurred while updating user in UpdateAsync service method: {ex}");
                 throw new InvalidOperationException($"An error occurred when updating the user: {ex.Message}");
             }
         }
@@ -84,6 +88,7 @@ namespace CleanArchitecture.Application.Services
             }
             catch (Exception ex)
             {
+                _logger.LogError($"An error occurred while deleting user in DeleteAsync service method: {ex}");
                 throw new Exception($"An error occurred when saving the role: {ex.Message}");
             }
         }
