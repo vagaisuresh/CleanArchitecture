@@ -12,11 +12,13 @@ namespace CleanArchitecture.API.Controllers
     {
         private readonly IRoleService _service;
         private readonly IMapper _mapper;
+        private readonly ILoggerService _logger;
 
-        public RolesController(IRoleService service, IMapper mapper)
+        public RolesController(IRoleService service, IMapper mapper, ILoggerService logger)
         {
             _service = service;
             _mapper = mapper;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -35,7 +37,7 @@ namespace CleanArchitecture.API.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception
+                _logger.LogError($"An error occurred while getting roles in GetRolesAsync method: {ex}");
                 return StatusCode(500, "Internal server error. Please try again later.");
             }
         }
@@ -59,7 +61,7 @@ namespace CleanArchitecture.API.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception
+                _logger.LogError($"An error occurred while getting role in GetRoleAsync method: {ex}");
                 return StatusCode(500, "Internal server error. Please try again later.");
             }
         }
@@ -84,7 +86,7 @@ namespace CleanArchitecture.API.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception
+                _logger.LogError($"An error occurred while saving role in PostAsync method: {ex}");
                 return StatusCode(500, "Internal server error.");
             }
         }
@@ -104,7 +106,7 @@ namespace CleanArchitecture.API.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception
+                _logger.LogError($"An error occurred while updating role in PutAsync method: {ex}");
                 return StatusCode(500, "Internal server error.");
             }
         }
@@ -122,7 +124,7 @@ namespace CleanArchitecture.API.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception
+                _logger.LogError($"An error occurred while deleting role in DeleteAsync method: {ex}");
                 return StatusCode(500, "Internal server error.");
             }
         }

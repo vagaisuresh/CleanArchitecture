@@ -7,10 +7,12 @@ namespace CleanArchitecture.Application.Services
     public class RoleService : IRoleService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ILoggerService _logger;
 
-        public RoleService(IUnitOfWork unitOfWork)
+        public RoleService(IUnitOfWork unitOfWork, ILoggerService logger)
         {
             _unitOfWork = unitOfWork;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<Role>> GetAllRolesAsync()
@@ -34,6 +36,7 @@ namespace CleanArchitecture.Application.Services
             }
             catch (Exception ex)
             {
+                _logger.LogError($"An error occurred while saving role in CreateAsync service method: {ex}");
                 throw new Exception($"An error occurred when saving the role: {ex.Message}");
             }
         }
@@ -56,6 +59,7 @@ namespace CleanArchitecture.Application.Services
             }
             catch (Exception ex)
             {
+                _logger.LogError($"An error occurred while udating role in UpdateAsync service method: {ex}");
                 throw new Exception($"An error occurred when updating the role: {ex.Message}");
             }
         }
@@ -74,6 +78,7 @@ namespace CleanArchitecture.Application.Services
             }
             catch (Exception ex)
             {
+                _logger.LogError($"An error occurred while deleting role in DeleteAsync service method: {ex}");
                 throw new Exception($"An error occurred when saving the role: {ex.Message}");
             }
         }

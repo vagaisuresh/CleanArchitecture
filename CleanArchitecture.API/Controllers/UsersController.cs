@@ -13,11 +13,13 @@ namespace CleanArchitecture.API.Controllers
     {
         private readonly IUserService _service;
         private readonly IMapper _mapper;
+        private readonly ILoggerService _logger;
 
-        public UsersController(IUserService service, IMapper mapper)
+        public UsersController(IUserService service, IMapper mapper, ILoggerService logger)
         {
             _service = service;
             _mapper = mapper;
+            _logger = logger;
         }
 
         [HttpGet("all")]
@@ -36,7 +38,7 @@ namespace CleanArchitecture.API.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception
+                _logger.LogError($"An error occurred while getting users in GetUsersAsync method: {ex}");
                 return StatusCode(500, "Internal server error. Please try again later.");
             }
         }
@@ -57,7 +59,7 @@ namespace CleanArchitecture.API.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception
+                _logger.LogError($"An error occurred while getting users in GetUsersPagingAsync method: {ex}");
                 return StatusCode(500, "Internal server error. Please try again later.");
             }
         }
@@ -81,7 +83,7 @@ namespace CleanArchitecture.API.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception
+                _logger.LogError($"An error occurred while getting user in GetUserByIdAsync method: {ex}");
                 return StatusCode(500, "Internal server error. Please try again later.");
             }
         }
@@ -105,7 +107,7 @@ namespace CleanArchitecture.API.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception
+                _logger.LogError($"An error occurred while saving user in PostAsync method: {ex}");
                 return StatusCode(500, "Internal server error.");
             }
         }
@@ -125,7 +127,7 @@ namespace CleanArchitecture.API.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception
+                _logger.LogError($"An error occurred while updating user in PutAsync method: {ex}");
                 return StatusCode(500, "Internal server error.");
             }
         }
@@ -143,7 +145,7 @@ namespace CleanArchitecture.API.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception
+                _logger.LogError($"An error occurred while deleting user in DeleteAsync method: {ex}");
                 return StatusCode(500, "Internal server error.");
             }
         }
