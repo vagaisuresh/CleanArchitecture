@@ -19,6 +19,13 @@ namespace CleanArchitecture.Persistence.Repositories
                 .ToListAsync();
         }
 
+        public async Task<Role?> GetRoleAsync(short id)
+        {
+            return await _context.Roles
+                .AsNoTracking()
+                .FirstOrDefaultAsync(a => a.Id == id);
+        }
+
         public async Task<Role?> GetRoleByIdAsync(short id)
         {
             return await _context.Roles.FindAsync(id);

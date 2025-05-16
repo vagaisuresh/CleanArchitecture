@@ -50,7 +50,7 @@ namespace CleanArchitecture.API.Controllers
                 if (id == 0)
                     return BadRequest("Invalid ID provided.");
 
-                var role = await _service.GetRoleByIdAsync(id);
+                var role = await _service.GetRoleAsync(id);
 
                 if (role == null)
                     return NotFound();

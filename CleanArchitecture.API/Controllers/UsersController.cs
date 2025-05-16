@@ -72,7 +72,7 @@ namespace CleanArchitecture.API.Controllers
                 if (id == 0)
                     return BadRequest("Invalid ID provided.");
 
-                var user = await _service.GetUserByIdAsync(id);
+                var user = await _service.GetUserAsync(id);
 
                 if (user == null)
                     return NotFound();

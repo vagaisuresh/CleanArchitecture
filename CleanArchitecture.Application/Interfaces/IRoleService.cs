@@ -5,7 +5,7 @@ namespace CleanArchitecture.Application.Interfaces
     public interface IRoleService
     {
         Task<IEnumerable<Role>> GetAllRolesAsync();
-        Task<Role?> GetRoleByIdAsync(short id);
+        Task<Role?> GetRoleAsync(short id);
 
         Task<Role> CreateAsync(Role role);
         Task UpdateAsync(short id, Role role);
