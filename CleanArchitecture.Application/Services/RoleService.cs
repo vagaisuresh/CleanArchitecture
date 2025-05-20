@@ -20,9 +20,9 @@ namespace CleanArchitecture.Application.Services
             return await _unitOfWork.RoleRepository.GetRolesAsync();
         }
 
-        public async Task<Role?> GetRoleByIdAsync(short id)
+        public async Task<Role?> GetRoleAsync(short id)
         {
-            return await _unitOfWork.RoleRepository.GetRoleByIdAsync(id);
+            return await _unitOfWork.RoleRepository.GetRoleAsync(id);
         }
 
         public async Task<Role> CreateAsync(Role role)

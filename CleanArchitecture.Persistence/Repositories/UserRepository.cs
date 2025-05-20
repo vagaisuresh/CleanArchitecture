@@ -14,7 +14,11 @@ namespace CleanArchitecture.Persistence.Repositories
 
         public async Task<IEnumerable<User>> GetUsersAsync()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users
+                .AsNoTracking()
+                .Include(i => i.Role)
+                .OrderBy(o => o.FullName)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<User>> GetUsersPagingAsync(int pageNumber, int pageSize)
@@ -26,6 +30,14 @@ namespace CleanArchitecture.Persistence.Repositories
                 .Include(i => i.Role)
                 .OrderBy(o => o.FullName)
                 .ToListAsync();
+        }
+
+        public async Task<User?> GetUserAsync(short id)
+        {
+            return await _context.Users
+                .AsNoTracking()
+                .Include(i => i.Role)
+                .FirstOrDefaultAsync(a => a.Id == id);
         }
 
         public async Task<User?> GetUserByIdAsync(short id)
