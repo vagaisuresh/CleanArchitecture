@@ -1,4 +1,5 @@
 using CleanArchitecture.Application.Interfaces;
+using CleanArchitecture.Persistence.Context;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.API.Controllers;
@@ -8,10 +9,12 @@ namespace CleanArchitecture.API.Controllers;
 public class LogsController : ControllerBase
 {
     private readonly ILoggerService _logger;
+    private readonly AppDbContext _context;
 
-    public LogsController(ILoggerService logger)
+    public LogsController(ILoggerService logger, AppDbContext context)
     {
         _logger = logger;
+        _context = context;
     }
 
     [HttpGet]
@@ -21,7 +24,16 @@ public class LogsController : ControllerBase
         _logger.LogDebug("Here is debug message from the controller.");
         _logger.LogWarning("Here is warn message from the controller.");
         _logger.LogError("Here is error message from the controller.");
-        
+
         return new string[] { "value1", "value2" };
+    }
+
+    [HttpGet("db-check")]
+    public IActionResult CheckDatabase()
+    {
+        if (_context.Database.CanConnect())
+            return Ok("✅ Database connection successful.");
+        else
+            return StatusCode(500, "❌ Cannot connect to database.");
     }
 }

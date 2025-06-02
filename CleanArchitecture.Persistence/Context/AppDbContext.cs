@@ -12,5 +12,17 @@ namespace CleanArchitecture.Persistence.Context
 
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<User>(entity =>
+            {
+                entity.HasOne(u => u.Role)
+                      .WithMany()
+                      .HasForeignKey(u => u.RoleId);
+            });
+        }
     }
 }
