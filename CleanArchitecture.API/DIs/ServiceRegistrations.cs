@@ -10,7 +10,12 @@ namespace CleanArchitecture.API.DIs
     {
         public static void ConfigureSqlContext(this IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer("connectionString"));
+            string connectionString = Environment.GetEnvironmentVariable("SqlConnection__CleanArchitecture") ?? string.Empty;
+
+            if (string.IsNullOrEmpty(connectionString))
+                throw new InvalidOperationException("Database connection string is not set in environment variables.");
+            
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
         }
 
         public static void ConfigureLoggerService(this IServiceCollection services)
