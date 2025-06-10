@@ -22,6 +22,10 @@ public class LogsController : ControllerBase
     {
         _logger.LogDebug("Here is debug message from the controller.");
         _logger.LogInfo("Here is info message from the controller.");
+
+        //throw new Exception("Handling Errors Globally With the Built-In Middleware: Exception while fetching all the students from the storage.");
+        //throw new AccessViolationException("Violation Exception while accessing the resource.");
+
         _logger.LogError("Here is error message from the controller.");
         _logger.LogWarning("Here is warn message from the controller.");
 
