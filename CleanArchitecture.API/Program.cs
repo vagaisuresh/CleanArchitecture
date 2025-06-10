@@ -1,4 +1,5 @@
 using CleanArchitecture.API.DIs;
+using CleanArchitecture.API.Extensions;
 using CleanArchitecture.API.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,8 @@ builder.Services.ConfigureLoggerService();
 builder.Services.AddControllers();
 
 var app = builder.Build();
+
+app.ConfigureCustomExceptionMiddleware();
 
 app.UseHttpsRedirection();
 
